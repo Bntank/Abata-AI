@@ -1,5 +1,4 @@
 
-# Laravel 13 + native LightGBM inference in a single service.
 FROM composer:2 AS composer_bin
 FROM php:8.4-apache-bookworm
 
@@ -55,12 +54,17 @@ COPY deploy/apache-mpm.conf /etc/apache2/mods-available/mpm_prefork.conf
 COPY deploy/php.ini /usr/local/etc/php/conf.d/abata.ini
 COPY deploy/entrypoint.sh /usr/local/bin/abata-entrypoint
 
-RUN chmod 755 /usr/local/bin/abata-entrypoint \
-    && a2dismod mpm_event mpm_worker \
+# Normalize Windows CRLF and UTF-8 BOM.
+RUN python3 -c "from pathlib import Path; p=Path('/usr/local/bin/abata-entrypoint'); s=p.read_text(encoding='utf-8-sig'); assert s.startswith('#!/bin/sh\n'), 'Invalid entrypoint shebang'; p.write_bytes(s.encode('utf-8'))" \
+    && chmod 755 /usr/local/bin/abata-entrypoint \
+    && /bin/sh -n /usr/local/bin/abata-entrypoint
+
+# Ensure only one Apache MPM is enabled.
+RUN a2dismod mpm_event mpm_worker \
     && a2enmod mpm_prefork rewrite headers \
     && apache2ctl configtest
 
 EXPOSE 8080
 
-ENTRYPOINT ["/usr/local/bin/abata-entrypoint"]
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/abata-entrypoint"]
 CMD ["apache2-foreground"]
