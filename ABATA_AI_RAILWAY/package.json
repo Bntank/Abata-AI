@@ -1,0 +1,1 @@
+{"name":"abata-ai-umkm","private":true,"version":"2.0.0","scripts":{"build":"node scripts/build-css.cjs"},"devDependencies":{"tailwindcss":"4.1.10"}}

@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+!.env.example
+vendor
+.venv
+node_modules
+storage/**
+bootstrap/cache/**
+**/__pycache__
+*.zip
+*.sql
+*.dump
+*.log
+*.md
+.pytest_cache
+.phpunit.result.cache

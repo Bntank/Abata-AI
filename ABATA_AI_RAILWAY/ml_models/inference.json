@@ -1,0 +1,252 @@
+{
+  "schema_version": "abata-ml-3",
+  "run_id": "abata-ml-412860cc62a6cfa0",
+  "status": "experimental_not_approved",
+  "scope": "synthetic_seed_v2",
+  "forecast_date": "2026-11-25",
+  "as_of_date": "2026-11-24",
+  "history_sha256": "95359a52ce0b05fe10598f9914074db327ba57984fa2824e6a246701e8d0f174",
+  "calendar_source": "explicit_demo_scenario",
+  "predictions": [
+    {
+      "product_name": "Ayam Potong (kg)",
+      "unit": "kg",
+      "target": "quantity",
+      "q50": 65.66756031758706,
+      "q80": 78.14635838710038,
+      "sigma_q50": 11.301550175769586,
+      "critical_fractile": 0.7,
+      "empirical_qcf": 82.72,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 65.98774007200022,
+          "correction": -0.3201797544131679,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 73.49493971275432,
+          "correction": 4.651418674346061,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Ayam Potong (kg)",
+      "unit": "kg",
+      "target": "demand_quantity",
+      "q50": 67.2678193984918,
+      "qcf": 76.97547796929157,
+      "q80": 79.91130552633606,
+      "sigma_q50": 14.535985616065906,
+      "critical_fractile": 0.7,
+      "empirical_qcf": 85.366,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 69.5131914171142,
+          "correction": -2.2453720186224047,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "qcf",
+          "alpha": 0.7,
+          "raw": 74.58016366329612,
+          "correction": 2.3953143059954556,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 78.18773648862998,
+          "correction": 1.7235690377060848,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Bumbu Racik",
+      "unit": "pack",
+      "target": "quantity",
+      "q50": 61.84806553397562,
+      "q80": 74.36000446738454,
+      "sigma_q50": 10.077573127650762,
+      "critical_fractile": 0.9090909090909091,
+      "empirical_qcf": 91.75363636363635,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 61.57206581632266,
+          "correction": 0.27599971765295805,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 71.03374946571684,
+          "correction": 3.326255001667704,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Bumbu Racik",
+      "unit": "pack",
+      "target": "demand_quantity",
+      "q50": 66.94808982926423,
+      "q80": 77.14137188897239,
+      "qcf": 87.47615984388668,
+      "sigma_q50": 13.593399321070898,
+      "critical_fractile": 0.9090909090909091,
+      "empirical_qcf": 102.6754545454545,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 67.6970347489263,
+          "correction": -0.7489449196620654,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 73.6330199331829,
+          "correction": 3.508351955789493,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "qcf",
+          "alpha": 0.9090909090909091,
+          "raw": 80.15233270238471,
+          "correction": 7.323827141501965,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Minyak Goreng",
+      "unit": "liter",
+      "target": "quantity",
+      "q50": 17.382251510205275,
+      "q80": 20.812910707561706,
+      "sigma_q50": 2.8363538109937707,
+      "critical_fractile": 0.9302325581395349,
+      "empirical_qcf": 25.417790697674413,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 17.44362138513042,
+          "correction": -0.061369874925144785,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 20.443978692645768,
+          "correction": 0.36893201491593786,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Minyak Goreng",
+      "unit": "liter",
+      "target": "demand_quantity",
+      "q50": 18.586102438166588,
+      "q80": 20.041400951796952,
+      "qcf": 22.377661022405686,
+      "sigma_q50": 3.7087004344327035,
+      "critical_fractile": 0.9302325581395349,
+      "empirical_qcf": 29.783604651162786,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 18.393997352051237,
+          "correction": 0.19210508611535104,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 20.26750954436697,
+          "correction": -0.22610859257001792,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "qcf",
+          "alpha": 0.9302325581395349,
+          "raw": 21.891320794269237,
+          "correction": 0.4863402281364486,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Nasi Porsi",
+      "unit": "porsi",
+      "target": "quantity",
+      "q50": 233.17791861490872,
+      "q80": 264.5598579056567,
+      "sigma_q50": 34.14880855303342,
+      "critical_fractile": 0.6451612903225806,
+      "empirical_qcf": 264.0322580645161,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 235.7526754148621,
+          "correction": -2.574756799953377,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 254.4663619808123,
+          "correction": 10.093495924844376,
+          "feature_set": "F3"
+        }
+      ]
+    },
+    {
+      "product_name": "Nasi Porsi",
+      "unit": "porsi",
+      "target": "demand_quantity",
+      "q50": 248.84805346174187,
+      "qcf": 253.89792839163238,
+      "q80": 277.9557368515546,
+      "sigma_q50": 46.807268406838055,
+      "critical_fractile": 0.6451612903225806,
+      "empirical_qcf": 277.19354838709677,
+      "details": [
+        {
+          "quantile": "q50",
+          "alpha": 0.5,
+          "raw": 247.958712218857,
+          "correction": 0.8893412428848819,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "qcf",
+          "alpha": 0.6451612903225806,
+          "raw": 241.39466836541902,
+          "correction": 12.503260026213354,
+          "feature_set": "F3"
+        },
+        {
+          "quantile": "q80",
+          "alpha": 0.8,
+          "raw": 267.37459109231503,
+          "correction": 10.581145759239575,
+          "feature_set": "F3"
+        }
+      ]
+    }
+  ]
+}

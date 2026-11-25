@@ -1,0 +1,20 @@
+menu_id,menu_name,product_name,quantity_per_menu,unit,data_source
+M01,Paket Ayam Crispy + Nasi,Ayam Potong (kg),0.200,kg,synthetic_seed_v2
+M01,Paket Ayam Crispy + Nasi,Minyak Goreng,0.030,liter,synthetic_seed_v2
+M01,Paket Ayam Crispy + Nasi,Nasi Porsi,1.000,porsi,synthetic_seed_v2
+M01,Paket Ayam Crispy + Nasi,Bumbu Racik,0.180,pack,synthetic_seed_v2
+M02,Paket Jumbo Double Ayam,Ayam Potong (kg),0.400,kg,synthetic_seed_v2
+M02,Paket Jumbo Double Ayam,Minyak Goreng,0.120,liter,synthetic_seed_v2
+M02,Paket Jumbo Double Ayam,Nasi Porsi,1.000,porsi,synthetic_seed_v2
+M02,Paket Jumbo Double Ayam,Bumbu Racik,0.220,pack,synthetic_seed_v2
+M03,Ayam Ala Carte,Ayam Potong (kg),0.200,kg,synthetic_seed_v2
+M03,Ayam Ala Carte,Minyak Goreng,0.065,liter,synthetic_seed_v2
+M03,Ayam Ala Carte,Bumbu Racik,0.120,pack,synthetic_seed_v2
+M04,Nasi Tambahan,Nasi Porsi,1.000,porsi,synthetic_seed_v2
+M05,Paket Ayam Pedas + Nasi,Ayam Potong (kg),0.220,kg,synthetic_seed_v2
+M05,Paket Ayam Pedas + Nasi,Minyak Goreng,0.085,liter,synthetic_seed_v2
+M05,Paket Ayam Pedas + Nasi,Nasi Porsi,1.000,porsi,synthetic_seed_v2
+M05,Paket Ayam Pedas + Nasi,Bumbu Racik,0.450,pack,synthetic_seed_v2
+M06,Ayam Bucket 4 Potong,Ayam Potong (kg),0.800,kg,synthetic_seed_v2
+M06,Ayam Bucket 4 Potong,Minyak Goreng,0.100,liter,synthetic_seed_v2
+M06,Ayam Bucket 4 Potong,Bumbu Racik,0.380,pack,synthetic_seed_v2

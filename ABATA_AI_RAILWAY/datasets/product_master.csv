@@ -1,0 +1,5 @@
+product_name,unit,purchase_cost,underage_cost,overage_cost,critical_fractile,lead_time,order_multiple,shelf_life_days,data_source
+Ayam Potong (kg),kg,35000,28000,12000,0.700000,1,1,2,synthetic_seed_v2
+Minyak Goreng,liter,17500,16000,1200,0.930233,1,2,30,synthetic_seed_v2
+Nasi Porsi,porsi,3000,4000,2200,0.645161,1,1,1,synthetic_seed_v2
+Bumbu Racik,pack,5000,6500,650,0.909091,1,1,60,synthetic_seed_v2

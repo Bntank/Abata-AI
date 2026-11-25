@@ -1,0 +1,4 @@
+# Preserve raw bytes across Windows/GitHub/Linux; the ML manifest hashes files.
+* -text
+# Shell scripts require LF; these are not part of the ML manifest.
+*.sh text eol=lf

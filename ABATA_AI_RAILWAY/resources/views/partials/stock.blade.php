@@ -1,0 +1,1 @@
+<div class="grid metrics">@foreach($products as $p)<div class="metric"><small>{{ $p->label }}</small><strong>{{ $amount($p->usable) }} <span>{{ $p->unit }}</span></strong><span class="{{ $p->usable<=0?'text-alert':'muted' }}">{{ $p->usable<=0?'Stok habis':'Stok tersedia' }}</span></div>@endforeach</div>

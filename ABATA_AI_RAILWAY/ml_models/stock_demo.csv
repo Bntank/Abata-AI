@@ -1,0 +1,5 @@
+product_name,unit,usable_on_hand,data_source,as_of_date,eligible_inbound,reserved
+Ayam Potong (kg),kg,5.442,synthetic_seed_v2,2026-11-24,0,0
+Bumbu Racik,pack,14.283,synthetic_seed_v2,2026-11-24,0,0
+Minyak Goreng,liter,5.758,synthetic_seed_v2,2026-11-24,0,0
+Nasi Porsi,porsi,0.0,synthetic_seed_v2,2026-11-24,0,0

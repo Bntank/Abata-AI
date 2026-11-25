@@ -1,0 +1,12 @@
+'use strict';
+document.addEventListener('DOMContentLoaded',()=>{
+ const toggle=document.querySelector('[data-sidebar]');if(toggle)toggle.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');toggle.setAttribute('aria-expanded',String(open));});
+ document.querySelectorAll('[data-show-password]').forEach(el=>el.addEventListener('change',()=>{const field=document.getElementById(el.dataset.showPassword);if(field)field.type=el.checked?'text':'password';}));
+ const selected=[...document.querySelectorAll('[data-plan-cost]')], total=document.getElementById('plan-total'), plan=document.getElementById('plan-submit');
+ const updatePlan=()=>{if(total)total.textContent=new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(selected.filter(x=>x.checked).reduce((s,x)=>s+Number(x.dataset.planCost),0));if(plan)plan.disabled=!selected.some(x=>x.checked);};selected.forEach(x=>x.addEventListener('change',updatePlan));updatePlan();
+ const menu=document.getElementById('sale-menu'),qty=document.getElementById('sale-qty'),cap=document.getElementById('sale-capacity'),preview=document.getElementById('sale-preview');
+ const updateSale=()=>{if(!menu||!qty)return;const opt=menu.selectedOptions[0];if(!opt||!opt.value){cap.textContent='Pilih menu untuk melihat perkiraan jumlah yang dapat dipenuhi.';preview.textContent='';return;}const n=Number(opt.dataset.capacity),r=Math.max(0,Math.floor(Number(qty.value)||0));cap.textContent=`Stok saat halaman dibuka cukup untuk sekitar ${n} porsi.`;preview.textContent=`Perkiraan terpenuhi: ${Math.min(n,r)} porsi · tidak terpenuhi: ${Math.max(0,r-n)} porsi.`;};
+ if(menu&&qty){menu.addEventListener('change',updateSale);qty.addEventListener('input',updateSale);document.querySelectorAll('[data-qty]').forEach(b=>b.addEventListener('click',()=>{qty.value=b.dataset.qty;updateSale();}));updateSale();}
+ document.querySelectorAll('form[method="post"]').forEach(form=>form.addEventListener('submit',e=>{if(form.dataset.busy){e.preventDefault();return;}if(form.dataset.confirm&&!window.confirm(form.dataset.confirm)){e.preventDefault();return;}form.dataset.busy='1';form.setAttribute('aria-busy','true');/* Do not disable submitter: name/value must reach Laravel. */}));
+ window.addEventListener('pageshow',()=>document.querySelectorAll('form[data-busy]').forEach(form=>{delete form.dataset.busy;form.removeAttribute('aria-busy');}));
+});
