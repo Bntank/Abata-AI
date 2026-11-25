@@ -1,11 +1,16 @@
+# syntax=docker/dockerfile:1
 
 FROM composer:2 AS composer_bin
 FROM php:8.4-apache-bookworm
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     PYTHON_BIN=/opt/abata-venv/bin/python \
-    PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
-    OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    OMP_NUM_THREADS=1 \
+    OPENBLAS_NUM_THREADS=1 \
+    MKL_NUM_THREADS=1 \
+    NUMEXPR_NUM_THREADS=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         python3 python3-venv libgomp1 libonig-dev libxml2-dev unzip \
@@ -43,7 +48,13 @@ COPY ml_models ./ml_models
 COPY tests/python ./tests/python
 COPY artisan ./artisan
 
-RUN mkdir -p bootstrap/cache storage/app/private storage/framework/cache/data storage/framework/cache/locks storage/framework/sessions storage/framework/views storage/logs \
+RUN mkdir -p bootstrap/cache \
+    storage/app/private \
+    storage/framework/cache/data \
+    storage/framework/cache/locks \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
     && composer dump-autoload --no-dev --optimize --no-scripts \
     && /opt/abata-venv/bin/python -m unittest discover -s tests/python -v \
     && rm -rf tests \
@@ -52,19 +63,78 @@ RUN mkdir -p bootstrap/cache storage/app/private storage/framework/cache/data st
 COPY deploy/apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY deploy/apache-mpm.conf /etc/apache2/mods-available/mpm_prefork.conf
 COPY deploy/php.ini /usr/local/etc/php/conf.d/abata.ini
-COPY deploy/entrypoint.sh /usr/local/bin/abata-entrypoint
 
-# Normalize Windows CRLF and UTF-8 BOM.
-RUN python3 -c "from pathlib import Path; p=Path('/usr/local/bin/abata-entrypoint'); s=p.read_text(encoding='utf-8-sig'); assert s.startswith('#!/bin/sh\n'), 'Invalid entrypoint shebang'; p.write_bytes(s.encode('utf-8'))" \
-    && chmod 755 /usr/local/bin/abata-entrypoint \
-    && /bin/sh -n /usr/local/bin/abata-entrypoint
-
-# Ensure only one Apache MPM is enabled.
 RUN a2dismod mpm_event mpm_worker \
     && a2enmod mpm_prefork rewrite headers \
     && apache2ctl configtest
 
+COPY <<'ABATA_ENTRYPOINT' /usr/local/bin/abata-entrypoint
+#!/bin/sh
+set -eu
+
+cd /var/www/html
+
+: "${PORT:=8080}"
+
+echo "[ABATA] Starting application"
+
+case "$PORT" in
+    ''|*[!0-9]*)
+        echo "PORT must be numeric" >&2
+        exit 1
+        ;;
+esac
+
+if [ "$PORT" -lt 1024 ] || [ "$PORT" -gt 65535 ]; then
+    echo "PORT out of range" >&2
+    exit 1
+fi
+
+echo "[ABATA] Configuring Apache port $PORT"
+
+printf 'Listen %s\n' "$PORT" > /etc/apache2/ports.conf
+
+sed -i -E "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:$PORT>/" /etc/apache2/sites-available/000-default.conf
+
+mkdir -p \
+    bootstrap/cache \
+    storage/app/private \
+    storage/framework/cache/data \
+    storage/framework/cache/locks \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs
+
+a2dismod mpm_event mpm_worker
+a2enmod mpm_prefork
+
+apache2ctl configtest
+
+echo "[ABATA] Discovering Laravel packages"
+
+php artisan package:discover --ansi
+
+echo "[ABATA] Initializing database"
+
+php artisan abata:railway-init
+
+echo "[ABATA] Preparing views"
+
+php artisan view:cache
+
+chown -R www-data:www-data storage bootstrap/cache
+
+apache2ctl configtest
+
+echo "[ABATA] Starting Apache on port $PORT"
+
+exec apache2-foreground
+ABATA_ENTRYPOINT
+
+RUN chmod 755 /usr/local/bin/abata-entrypoint \
+    && /bin/sh -n /usr/local/bin/abata-entrypoint \
+    && echo "ABATA startup script validation successful"
+
 EXPOSE 8080
 
 ENTRYPOINT ["/bin/sh", "/usr/local/bin/abata-entrypoint"]
-CMD ["apache2-foreground"]
